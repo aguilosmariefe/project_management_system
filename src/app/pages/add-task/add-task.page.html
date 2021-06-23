@@ -1,15 +1,39 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
   	<ion-buttons slot="start">
   		<ion-back-button default Href="/tab1"></ion-back-button>
   	</ion-buttons>
-
-  		<ion-button (click)="done()" slot="end" fill="clear">Done</ion-button>
-
-    <ion-title>Add Task</ion-title>
+    <ion-title>Add to Project Lists</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+	<ion-card>
+	<ion-row align-items-center no-padding>
+        <ion-col size="12">
+          <ion-textarea autosize placeholder=" Enter project Title" [(ngModel)]="compose" class="messageBox"></ion-textarea>
+		  
+		  
 
+		 
+		
+			<ion-item expand="full">
+				<ion-datetime placeholder="Date" displayFormat="MMM DD, YYYY" class="datetime"></ion-datetime>&nbsp;
+				<ion-datetime placeholder="Time" displayFormat="hh:mm A" class="btn-time"></ion-datetime>
+
+				<ion-button fill="clear" slot="end">
+					<ion-icon name="paper-plane" class="icon"></ion-icon>
+				</ion-button>
+
+			</ion-item>
+		
+		
+
+		
+		  
+		</ion-col>
+	</ion-row>	
+</ion-card>
+	
+	
 </ion-content>
