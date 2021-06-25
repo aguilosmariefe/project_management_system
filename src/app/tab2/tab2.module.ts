@@ -8,14 +8,21 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 
+import { NgCalendarModule  } from 'ionic2-calendar';
+import { CalModalPageModule } from '../pages/cal-modal/cal-modal.module';
+
+
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab2PageRoutingModule
+    Tab2PageRoutingModule,
+    NgCalendarModule,
+    CalModalPageModule
+    
   ],
-  declarations: [Tab2Page]
+  declarations: [Tab2Page],
 })
 export class Tab2PageModule {}

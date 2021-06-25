@@ -13,10 +13,28 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add" routerLink="/add-task"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+
+  <ion-item>
   
+    <ion-avatar slot="start">
+      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+    </ion-avatar>
+    <ion-label>Account User</ion-label>
+    <ion-button fill="clear">Login</ion-button>
+    
+  </ion-item>
+
+
+  <ion-card class="card-1">
+    <ion-label>Completed Tasks</ion-label>
+    <p>7</p>
+  </ion-card>
+
+  <ion-card class="card-2">
+    <ion-label>Pending Tasks</ion-label>
+    <p>7</p>
+  </ion-card>
+
+
+
 </ion-content>
