@@ -1,16 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <div class="title ">
+<ion-header>
+  <ion-toolbar color="secondary"> 
     <ion-title>
-        <p>TO-DO LISTS</p>
+      <h1>To-do Lists</h1>
     </ion-title>
-  </div>
   </ion-toolbar>
 </ion-header>
   
 
 <ion-content >
-  <ion-card class="cover">
+  <ion-card color="dark">
     <ion-card-content>
       <ion-item>
         <ion-textarea type="text" [(ngModel)]="taskName" placeholder="Enter task"></ion-textarea>
@@ -20,11 +18,11 @@
       </div>
     </ion-card-content>
   </ion-card>
-      <ion-list class="item">
+      <ion-list>
         <ion-item-sliding id="item100"  *ngFor="let todo of taskList; let i = index">
-          <ion-item>
+          <ion-item color="secondary">
             <ion-label>
-             <p>{{todo}}</p>
+            <h5>{{todo}}</h5>
             </ion-label>
           </ion-item>
           

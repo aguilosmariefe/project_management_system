@@ -4,11 +4,7 @@ ion-title{
 .item{
 	background-color: gray;
 }
-.btn-container{
-	
-	text-align: center;
-	
-}
+
 .title{
 	background-color: #C38888;
 }
@@ -21,5 +17,9 @@ p{
 	background-color: gray;
 }
 .btn-container{
-	background-color: #C38888;
+	background-color: #3dc2ff;
+	text-align: center;
+}
+.btn-btn ::part{
+	border-radius: 50px;
 }
