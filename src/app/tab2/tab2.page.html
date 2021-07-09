@@ -63,10 +63,7 @@
   [calendarMode]="calendar.mode"
   [currentDate]="calendar.currentDate"
   (onTitleChanged)="onViewTitleChanged($event)"
-  [monthviewDisplayEventTemplate]="template"
-
-
->
+  [monthviewDisplayEventTemplate]="template">
 </calendar>
 
 <ng-template #template let-view="view" let-row="row" let-col="col">

@@ -11,7 +11,8 @@
   <ion-card color="dark">
     <ion-card-content>
       <ion-item>
-        <ion-textarea type="text" [(ngModel)]="taskName" placeholder="Enter task"></ion-textarea>
+        <ion-textarea type="text" [(ngModel)]="taskName" placeholder="Enter task">
+        </ion-textarea>
       </ion-item>
       <div class="btn-container">
       <ion-button (click)="addTask()" fill="solid" class="btn-btn"><ion-icon name="add"></ion-icon></ion-button>
@@ -23,6 +24,14 @@
           <ion-item color="secondary">
             <ion-label>
             <h5>{{todo}}</h5>
+
+            <ion-item>
+              <ion-label>Select</ion-label>
+              <ion-select interface="action-sheet" class="custom-options">
+                <ion-select-option value="brown">brown</ion-select-option>
+              </ion-select>
+            </ion-item>
+
             </ion-label>
           </ion-item>
           

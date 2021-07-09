@@ -38,6 +38,8 @@ export class Tab2Page implements OnInit{
     this.viewTitle = title;
   }
 
+  
+
   createRandomEvents() {
     var events = [];
     for (var i = 0; i < 50; i += 1) {
