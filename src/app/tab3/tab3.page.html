@@ -1,38 +1,13 @@
 <ion-header>
-  <ion-toolbar color="secondary">
-    <ion-title>
-      <h1>Profile</h1>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-
-  <ion-item>
-  
-    <ion-avatar slot="start">
-      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-    </ion-avatar>
-    <ion-label>Account User</ion-label>
-    <ion-button fill="clear">Login</ion-button>
+    <ion-toolbar color="secondary"> 
+      <ion-title>
+        <h1></h1>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
     
-    
-  </ion-item>
 
- <ion-item class="card-container">
-  <ion-card>
-    <ion-label>Completed Tasks</ion-label>
-    <h1>8</h1>
-  </ion-card>
-
-  <ion-card>
-    <ion-label>Pending Tasks</ion-label>
-    <h1>8</h1>
-  </ion-card>
-
-  
-</ion-item>
-<ion-button fill="clear" expand="full" (click)="logout()">Logout</ion-button>
+<ion-content class="container">
+<ion-button class="btn-btn" shape="round" fill="outline"  (click)="logout()" >LOG OUT</ion-button>
 
 </ion-content>

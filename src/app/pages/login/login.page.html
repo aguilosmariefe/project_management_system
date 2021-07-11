@@ -1,13 +1,19 @@
 
 
 <ion-content>
-
+  <!-- <img src="assets/todo1.gif" style="margin-left: 40%;"> -->
+  
   <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="home" routerLink="/intro"></ion-icon>
     </ion-fab-button>
   </ion-fab>
- 
+  <br><br>
+
+  <div id="header">
+    <h1>Login</h1>
+    <img src="assets/woman.jpg"/>
+  </div>
   <form (ngSubmit)="login()" [formGroup]="credentials">
     <div class="input-group">
       <ion-item>
@@ -27,17 +33,9 @@
     </div>
  
     <ion-button type="submit" expand="block" [disabled]="!credentials.valid">Log in</ion-button>
-    <ion-button type="button" expand="block" color="light" fill="clear">Not yet a member? Sign up!
+    <ion-button type="button" expand="block" color="light" fill="clear">
     </ion-button>
  
-    <ion-button type="button" expand="block" color="tertiary">
-      <ion-icon name="logo-google" slot="start"></ion-icon>
-      Sign in with Google
-    </ion-button>
-    <ion-button type="button" expand="block" color="tertiary">
-      <ion-icon name="logo-apple" slot="start"></ion-icon>
-      Sign in with Apple
-    </ion-button>
   </form>
 </ion-content>
 

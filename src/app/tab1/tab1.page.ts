@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@capacitor/storage';
 import { NavController, AlertController } from '@ionic/angular';
+import {ContactServiceService} from '../services/contact-service.service';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-tab1',
@@ -8,12 +14,13 @@ import { NavController, AlertController } from '@ionic/angular';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
+  DATA_STORAGE = 'data';
+  taskName="";
+  taskCategory="";
   taskList = [];
 
-  taskName: any ="";
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController) {}
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public contactService: ContactServiceService) {}
 
   addTask() {
       if (this.taskName.length > 0) {
@@ -41,4 +48,25 @@ async updateTask(index) {
   await alert.present();
 
 }
+
+  async ngOnInit(){
+    this.getAllData();
+  }
+  insertDataToLumen(taskname,taskcategory){
+    this.contactService.insertDataToLumen(this.taskName, this.taskCategory).then(data => {
+      this.clearField();
+      this.getAllData();
+    })
+  }
+
+  getAllData(){
+    this.contactService.getDataFromLumen().then(data => {
+      this.taskList = data;
+      console.log(data);
+    });
+  }
+  clearField(){
+    this.taskName = " ";
+    this.taskCategory =" ";
+  }
 }

@@ -1,38 +1,51 @@
 <ion-header>
   <ion-toolbar color="secondary"> 
     <ion-title>
-      <h1>To-do Lists</h1>
+      <h1>Task Lists</h1>
     </ion-title>
   </ion-toolbar>
 </ion-header>
   
 
 <ion-content >
-  <ion-card color="dark">
+
+  <ion-card color="secondary" >
     <ion-card-content>
       <ion-item>
-        <ion-textarea type="text" [(ngModel)]="taskName" placeholder="Enter task">
+        <ion-textarea type="text" name="taskname" [(ngModel)]="taskName"  placeholder="Enter task">
         </ion-textarea>
       </ion-item>
+      <ion-item >
+      <ion-label>Category</ion-label>
+          <ion-select name="taskcategory" [(ngModel)]="taskCategory" ngDefaultControl>
+            <ion-select-option value="Web Application Development" >Web Application Development</ion-select-option>
+            <ion-select-option  value="Mobile Application Development" >Mobile Application Development</ion-select-option>
+            <ion-select-option value="Software Development" >Software Development</ion-select-option>
+            <ion-select-option value="Game Development" >Game Development</ion-select-option>
+          </ion-select>
+        </ion-item>
       <div class="btn-container">
-      <ion-button (click)="addTask()" fill="solid" class="btn-btn"><ion-icon name="add"></ion-icon></ion-button>
+      <ion-button (click)="insertDataToLumen()" fill="solid" class="btn-btn">ADD TASK</ion-button>
       </div>
     </ion-card-content>
   </ion-card>
+
       <ion-list>
         <ion-item-sliding id="item100"  *ngFor="let todo of taskList; let i = index">
           <ion-item color="secondary">
+           
             <ion-label>
-            <h5>{{todo}}</h5>
-
-            <ion-item>
-              <ion-label>Select</ion-label>
-              <ion-select interface="action-sheet" class="custom-options">
-                <ion-select-option value="brown">brown</ion-select-option>
-              </ion-select>
-            </ion-item>
-
+            <h5><b>Task:&nbsp;</b>{{todo.taskName}}</h5>
+            <h5><b>Category:&nbsp;</b>{{todo.taskCategory}}</h5>
             </ion-label>
+
+            <ion-select>
+              <ion-select-option>Standby</ion-select-option>
+              <ion-select-option>In Progress</ion-select-option>
+              <ion-select-option>Development</ion-select-option>
+              <ion-select-option>UAT Production</ion-select-option>
+              <ion-select-option>Ready for deployment</ion-select-option>
+            </ion-select>
           </ion-item>
           
           <ion-item-options side="end">

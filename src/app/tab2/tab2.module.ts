@@ -9,7 +9,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 
 import { NgCalendarModule  } from 'ionic2-calendar';
-import { CalModalPageModule } from '../pages/cal-modal/cal-modal.module';
+
 
 
 @NgModule({
@@ -20,7 +20,6 @@ import { CalModalPageModule } from '../pages/cal-modal/cal-modal.module';
     ExploreContainerComponentModule,
     Tab2PageRoutingModule,
     NgCalendarModule,
-    CalModalPageModule
     
   ],
   declarations: [Tab2Page],
