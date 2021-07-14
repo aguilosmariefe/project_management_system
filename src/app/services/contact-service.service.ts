@@ -25,7 +25,7 @@ export class ContactServiceService {
 
 getDataFromLumen(): Promise<any> {
   return new Promise( (resolve, reject) => {
-    this.http.get("http://localhost:8000/api/todolist").subscribe(data => {
+    this.http.get('http://localhost:8000/api/todolist').subscribe(data => {
       resolve(data);
     }, err => {
       reject(err);

@@ -30,10 +30,10 @@ export class LoginPage implements OnInit {
   async login() {
     const loading = await this.loadingController.create();
     await loading.present();
-    
+
     this.authService.login(this.credentials.value).subscribe(
       async (res) => {
-        await loading.dismiss();        
+        await loading.dismiss();
         this.router.navigateByUrl('/tabs', { replaceUrl: true });
       },
       async (res) => {
@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
           message: res.error.error,
           buttons: ['OK'],
         });
- 
+
         await alert.present();
       }
     );

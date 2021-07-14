@@ -13,7 +13,7 @@ import { BehaviorSubject, Observable, from } from 'rxjs';
 export class AuthenticationService {
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   token ='';
-
+  previousUrl = 'all';
   constructor(private http: HttpClient) { 
     this.loadToken();
   }
@@ -46,6 +46,5 @@ export class AuthenticationService {
   logout(): Promise<void>{
     this.isAuthenticated.next(false);
     return Storage.remove({key: TOKEN_KEY});
-
   }
 }
