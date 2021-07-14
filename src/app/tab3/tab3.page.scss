@@ -17,19 +17,20 @@ ion-card{
 	padding: 50px;
 }
 img{
-	height: 500px;
-	width: 1300px;
-	margin: 20px;
+    height: 300px;
+    width: 300px;
+    border-radius: 10px;
 }
+
 .container{
-	--background: url(/assets/background3.jpeg) 0 0/100% 100% no-repeat;
+	--background: url(/assets/logo.png) 0 0/100% 100% no-repeat;
 	background-size: cover;
 }
 .btn-btn{
 	color: black;
 	--background: white;
 	align-items: center;
-	margin-top: 52%;
+	margin-top: 90%;
 	margin-left: 35%;
 }
 
