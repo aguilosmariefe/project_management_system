@@ -47,7 +47,6 @@ export class UsersListPage implements OnInit {
       });
   }
   createUser(){
-    this.authService.previousUrl = this.currentRole;
     this.router.navigate(['admin/create-user']);
   }
 }

@@ -16,7 +16,7 @@
                         <h2 class="item-title">{{ cardItem.title }}</h2>
                     </ion-label>
                     <ion-badge color="tertiary" class="ion-margin-end">{{ cardItem.usersCount }}</ion-badge>
-                    <a [routerLink]="['/admin/users', cardItem.route]">
+                    <a [routerLink]="['/manage/admin/users', cardItem.route]">
                         <ion-icon color="tertiary" name="eye" size="large"></ion-icon>
                     </a>
                 </ion-item>

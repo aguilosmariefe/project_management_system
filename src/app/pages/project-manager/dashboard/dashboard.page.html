@@ -1,9 +1,56 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>Projects</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="tertiary" (click)="addProject()" shape="round">
+                <ion-icon slot="icon-only" size="large" name="bag-add-sharp"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
+
+<!-- Modal -->
+<div id="myModal" class="modal" [ngClass]="show ? 'show' : 'hide'">
+    <div class="modal-content">
+        <ion-card>
+            <ion-card-content>
+                <ion-card-title>Project</ion-card-title>
+                <form #f="ngForm">
+                    <ion-item>
+                        <ion-label position="floating">Title</ion-label>
+                        <ion-input placeholder="Input title here.." name="title" required [(ngModel)]="title"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Description</ion-label>
+                        <ion-input placeholder="Input description here.." required name="description" [(ngModel)]="description">
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Assignees</ion-label>
+                        <ion-select placeholder="Select Assignees" required name="user_ids" multiple [(ngModel)]="assignee">
+                            <ion-select-option *ngFor="let assignee of assignees" [value]="assignee.id">{{ assignee.name }}</ion-select-option>                        
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Start</ion-label>
+                        <ion-datetime displayFormat="MMM DD YYYY" name="startTime" pickerFormat="MMM DD, YYYY" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>End</ion-label>
+                        <ion-datetime displayFormat="MMM DD YYYY" name="endTime" pickerFormat="MMM DD, YYYY" [(ngModel)]="endTime" [min]="minDate"></ion-datetime>
+                      </ion-item>
+                </form>
+            </ion-card-content>
+            <ion-item class="ion-float-right">
+                <ion-button fill="outline" (click)="show = false" color="primary" shape="round">Cancel</ion-button>
+                <ion-button color="tertiary" [disabled]="f.invalid" shape="round" (click)="onSubmit(f)">Save</ion-button>
+            </ion-item>
+        </ion-card>
+    </div>
+</div>
+
+<!--  -->
 <ion-content>
     <ion-list>
         <ion-item lines="full" *ngFor="let project of projects">
@@ -13,8 +60,9 @@
             <ion-label>
                 <h2 style="font-weight: bold;">{{ project.title }}</h2>
                 <p>{{ project.description }}</p>
+                <small>{{project.timeline}}</small>
             </ion-label>
-            <a [routerLink]="['/project-manager/projects',project.id,'tasks']">
+            <a [routerLink]="['/manage/project-manager/projects',project.id,'tasks']">
                 <ion-icon color="tertiary" name="eye" size="large"></ion-icon>
             </a>
         </ion-item>

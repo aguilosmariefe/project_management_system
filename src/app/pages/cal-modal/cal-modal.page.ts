@@ -29,12 +29,12 @@ export class CalModalPage implements AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.modalReady = true;      
+      this.modalReady = true;
     }, 0);
 
   }
 
-  save() {    
+  save() {
     this.modalCtrl.dismiss({event: this.event})
   }
  
@@ -42,16 +42,12 @@ export class CalModalPage implements AfterViewInit {
     this.viewTitle = title;
   }
  
-  onTimeSelected(ev) {    
+  onTimeSelected(ev) {
     this.event.startTime = new Date(ev.selectedTime);
   }
  
   close() {
     this.modalCtrl.dismiss();
   }
-
-  
- 
-  
 
 }

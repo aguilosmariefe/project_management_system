@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { AuthenticationService } from './../../services/authentication.service';  
+import { AuthenticationService } from './../../services/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,8 +22,8 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.credentials = this.fb.group({
-      email: ['eve.holt@reqres.in', [Validators.required, Validators.email]],
-      password: ['cityslicka', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
     this.authService.login(this.credentials.value).subscribe(
       async (res) => {
         await loading.dismiss();
-        this.router.navigateByUrl('/tabs', { replaceUrl: true });
+        this.router.navigateByUrl('manage', { replaceUrl: true });
       },
       async (res) => {
         await loading.dismiss();
@@ -49,12 +49,11 @@ export class LoginPage implements OnInit {
     );
   }
 
-  
 
   get email() {
     return this.credentials.get('email');
   }
-  
+
   get password() {
     return this.credentials.get('password');
   }

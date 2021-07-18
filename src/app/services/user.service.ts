@@ -22,6 +22,16 @@ export class UserService extends BaseService {
         });
     });
   }
+
+  getDevs(): Promise<User[]> {
+    return new Promise((resolve, reject) => {
+        this.http.get<User[]>(`${this.apiUrl}/users/types/DEV`).subscribe(users => {
+            resolve(users);
+        }, err => {
+            reject(err);
+        });
+    });
+  }
 }
 
 export interface User {

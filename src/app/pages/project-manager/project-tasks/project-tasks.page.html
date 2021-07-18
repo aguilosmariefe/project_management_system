@@ -1,11 +1,9 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <a [routerLink]="['/project-manager/dashboard']">
-                <ion-button color="tertiary">
-                    <ion-icon slot="icon-only" size="large" name="arrow-back-circle-sharp"></ion-icon>
-                </ion-button>
-            </a>
+            <ion-button color="tertiary" (click)="back()">
+                <ion-icon slot="icon-only" size="large" name="arrow-back-circle-sharp"></ion-icon>
+            </ion-button>
         </ion-buttons>
         <ion-title>{{ getTitle() }}</ion-title>
         <ion-buttons slot="end">
@@ -25,11 +23,13 @@
                 <form #f="ngForm">
                     <ion-item>
                         <ion-label position="floating">Title</ion-label>
-                        <ion-input placeholder="Input title here.." name="title" required [(ngModel)]="title"></ion-input>
+                        <ion-input placeholder="Input title here.." name="title" required [(ngModel)]="title">
+                        </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating">Description</ion-label>
-                        <ion-input placeholder="Input description here.." required name="description" [(ngModel)]="description">
+                        <ion-input placeholder="Input description here.." required name="description"
+                            [(ngModel)]="description">
                         </ion-input>
                     </ion-item>
                     <ion-item>
@@ -50,7 +50,8 @@
             </ion-card-content>
             <ion-item class="ion-float-right">
                 <ion-button fill="outline" (click)="show = false" color="primary" shape="round">Cancel</ion-button>
-                <ion-button color="tertiary" [disabled]="f.invalid" shape="round" (click)="onSubmit(f)">{{ modalButton }}</ion-button>
+                <ion-button color="tertiary" [disabled]="f.invalid" shape="round" (click)="onSubmit(f)">{{ modalButton
+                    }}</ion-button>
             </ion-item>
         </ion-card>
     </div>
@@ -65,7 +66,8 @@
                 <div class="ion-float-right">
                     <ion-badge color="danger" class="ion-text-uppercase">{{ getTaskAssignee(task.user_id) }}
                     </ion-badge>
-                    <ion-badge [color]="getColorStatus(task.status)" class="ion-margin-start">{{ task.status }}</ion-badge>
+                    <ion-badge [color]="getColorStatus(task.status)" class="ion-margin-start">{{ task.status }}
+                    </ion-badge>
                 </div>
                 <p>
                     {{ task.description }}

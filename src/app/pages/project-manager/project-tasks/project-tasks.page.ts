@@ -4,6 +4,7 @@ import { Project, ProjectManagerService } from 'src/app/services/project-manager
 import { LoadingController } from '@ionic/angular';
 import {NgForm} from '@angular/forms';
 import { TaskService } from 'src/app/services/task.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-project-tasks',
@@ -27,6 +28,7 @@ export class ProjectTasksPage implements OnInit {
     private projectService: ProjectManagerService,
     private taskService: TaskService,
     private loadingState: LoadingController,
+    private location: Location,
   ) { }
 
   async ngOnInit() {
@@ -86,6 +88,9 @@ export class ProjectTasksPage implements OnInit {
   }
   getTitle() {
     return this.project ? this.project.title:'Loading ...';
+  }
+  back(){
+    this.location.back();
   }
   async onSubmit(data: NgForm) {
     const loading = await this.loadingState.create();
