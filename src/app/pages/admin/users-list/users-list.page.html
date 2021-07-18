@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <a [routerLink]="['/admin/dashboard']">
+                <ion-button color="tertiary">
+                    <ion-icon slot="icon-only" size="large" name="arrow-back-circle-sharp"></ion-icon>
+                </ion-button>
+            </a>
+        </ion-buttons>
+        <ion-title>{{ usersTitle }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="tertiary" (click)="createUser()" shape="round">
+                <ion-icon slot="icon-only" size="large" name="person-add-sharp"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let user of users">
+            <ion-label>
+                <h2 style="font-weight: bold;">{{ user.name }}</h2>
+                <p>
+                    {{ user.email }}
+                    <ion-badge color="tertiary" *ngIf="usersTitle === 'All Users'" class="ion-float-right">{{ user.role }}</ion-badge>
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

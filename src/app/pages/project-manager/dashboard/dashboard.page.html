@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Projects</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item lines="full" *ngFor="let project of projects">
+            <ion-avatar slot="start">
+                <ion-icon name="folder-open-sharp" size="large"></ion-icon>
+            </ion-avatar>
+            <ion-label>
+                <h2 style="font-weight: bold;">{{ project.title }}</h2>
+                <p>{{ project.description }}</p>
+            </ion-label>
+            <a [routerLink]="['/project-manager/projects',project.id,'tasks']">
+                <ion-icon color="tertiary" name="eye" size="large"></ion-icon>
+            </a>
+        </ion-item>
+    </ion-list>
+</ion-content>

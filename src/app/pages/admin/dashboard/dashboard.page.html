@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Dashboard</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card color="light" *ngFor="let cardItem of cardItems">
+        <ion-card-header>
+            <ion-list class="list-item">
+                <ion-item class="list-item" lines="none">
+                    <ion-avatar slot="start">
+                        <ion-icon color="tertiary" name="people-sharp" size="large"></ion-icon>
+                    </ion-avatar>
+                    <ion-label>
+                        <h2 class="item-title">{{ cardItem.title }}</h2>
+                    </ion-label>
+                    <ion-badge color="tertiary" class="ion-margin-end">{{ cardItem.usersCount }}</ion-badge>
+                    <a [routerLink]="['/admin/users', cardItem.route]">
+                        <ion-icon color="tertiary" name="eye" size="large"></ion-icon>
+                    </a>
+                </ion-item>
+            </ion-list>
+        </ion-card-header>
+    </ion-card>
+</ion-content>
