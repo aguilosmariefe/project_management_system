@@ -3,49 +3,56 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@capacitor/storage';
 
 import { HttpClient } from '@angular/common/http';
-const TOKEN_KEY = 'my_token';
 import { map, tap, switchMap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, from } from 'rxjs';
 
+const ACCESS_TOKEN = 'access_token';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
-  token ='';
+  token = '';
+  authUser?: any;
 
-  constructor(private http: HttpClient) { 
-    this.loadToken();
+  constructor(private http: HttpClient) {
+    this.setToken();
+    this.setAuthUser();
   }
-  
 
-  async loadToken() {
-    const token = await Storage.get({ key: TOKEN_KEY });    
+  async setToken() {
+    const token = await Storage.get({ key: ACCESS_TOKEN });
     if (token && token.value) {
-      console.log('set token: ', token.value);
       this.token = token.value;
       this.isAuthenticated.next(true);
     } else {
       this.isAuthenticated.next(false);
     }
-  
-
   }
-  login(credentials: {email,password}): Observable<any> {
-    return this.http.post(`https://reqres.in/api/login`, credentials).pipe(
-      map((data: any) => data.token),
-      switchMap(token => {
-        return from(Storage.set({key: TOKEN_KEY, value: token}));
-      }),
-      tap(_ => {
+  async setAuthUser() {
+    const user = await Storage.get({ key: 'user' });
+    if (user) {
+      this.authUser = JSON.parse(user.value);
+    }
+  }
+
+  login({ email, password }): Observable<any> {
+    return this.http.post(`http://localhost:8000/api/login`, { email, password }).pipe(
+      tap(({ token, user }) => {
+        from(Storage.set({ key: ACCESS_TOKEN, value: token }));
+        from(Storage.set({ key: 'user', value: JSON.stringify(user) }));
         this.isAuthenticated.next(true);
       })
-    )
+    );
 
   }
-  logout(): Promise<void>{
+  logout(): void {
     this.isAuthenticated.next(false);
-    return Storage.remove({key: TOKEN_KEY});
+    Storage.remove({ key: ACCESS_TOKEN });
+    Storage.remove({ key: 'user' });
+  }
 
+  getUserRole(): string {
+    return this.authUser.type;
   }
 }
