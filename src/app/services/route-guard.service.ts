@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from './authentication.service';
 import { Injectable } from '@angular/core';
@@ -8,7 +9,7 @@ import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RouteGuardService implements CanActivate {
-
+  canAccess = false;
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthenticationService,
@@ -28,18 +29,27 @@ export class RouteGuardService implements CanActivate {
         }
       ]
     });
-    const hasAccess = this.hasAccess(
-      route.data.role,
-      this.authService.getUserRole()
-    );
 
-    if (!hasAccess) {
-       alert.present();
+    await this.authService.getAuthUser().then(user => {
+      this.canAccess = this.hasAccess(
+        route.data.role,
+        user.type
+      );
+    });
+
+    if (!this.canAccess) {
+      alert.present();
     }
-    return hasAccess;
+    return this.canAccess;
   }
 
-  hasAccess(role: string, userType: string) {
-    return role === userType;
+  hasAccess(role: string | string[], userType: string) {
+    if (typeof role === 'string') {
+      return role === userType;
+    }
+
+    if (typeof role === 'object') {
+      return role.includes(userType);
+    }
   }
 }

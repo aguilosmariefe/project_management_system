@@ -28,19 +28,22 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    const loading = await this.loadingController.create();
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      animated: true
+    });
     await loading.present();
 
     this.authService.login(this.credentials.value).subscribe(
-      async (res) => {
+      async ({ user }) => {
         await loading.dismiss();
-        this.router.navigateByUrl('manage', { replaceUrl: true });
+        this.authService.redirectBaseOnRole(user.type);
       },
-      async (res) => {
+      async ({ error }) => {
         await loading.dismiss();
         const alert = await this.alertController.create({
           header: 'Login failed',
-          message: res.error.error,
+          message: error.message,
           buttons: ['OK'],
         });
 

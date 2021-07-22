@@ -1,3 +1,4 @@
+import { UserService, DEV, PM, ADMIN } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -9,44 +10,30 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class UsersListPage implements OnInit {
 
-  usersTitle = 'All Users';
-  users: any[] =[];
+  pageTitle = 'All Users';
+  users: any[] = [];
   currentRole = 'all';
   constructor(
-      private activatedroute: ActivatedRoute,
-      private router: Router,
-      private authService: AuthenticationService
+    private activatedroute: ActivatedRoute,
+    private router: Router,
+    private userService: UserService
   ) { }
   ngOnInit() {
-      const usersList = [
-        {name: 'Gerald Afable', email: 'gafable@gmail.com', role: 'Developer'},
-        {name: 'Jaynard Senilla', email: 'jsenilla@gmail.com', role: 'Developer'},
-        {name: 'John Paul Vistal', email: 'jpvistal@gmail.com', role: 'Project Manager'},
-        {name: 'Gerald Afable', email: 'gafable@gmail.com', role: 'Project Manager'},
-        {name: 'Jaynard Senilla', email: 'jsenilla@gmail.com', role: 'Developer'},
-        {name: 'John Paul Vistal', email: 'jpvistal@gmail.com', role: 'Project Manager'},
-        {name: 'Gerald Afable', email: 'gafable@gmail.com', role: 'Developer'},
-        {name: 'Jaynard Senilla', email: 'jsenilla@gmail.com', role: 'Developer'},
-        {name: 'John Paul Vistal', email: 'jpvistal@gmail.com', role: 'Project Manager'},
-        {name: 'Gerald Afable', email: 'gafable@gmail.com', role: 'Project Manager'},
-        {name: 'Jaynard Senilla', email: 'jsenilla@gmail.com', role: 'Developer'},
-        {name: 'John Paul Vistal', email: 'jpvistal@gmail.com', role: 'Project Manager'}
-      ];
-      this.users = usersList;
-      this.activatedroute.paramMap.subscribe(params => {
-          if (params.get('role') === 'pm') {
-            this.usersTitle = 'Project Managers';
-            const pmUsers = usersList.filter(user => user.role === 'Project Manager');
-            this.users = pmUsers;
-          }else if(params.get('role') === 'dev') {
-            this.usersTitle = 'Developers';
-            const devUsers = usersList.filter(user => user.role === 'Developer');
-            this.users = devUsers;
-          }
-          this.currentRole = params.get('role');
-      });
+    this.activatedroute.paramMap.subscribe(params => {
+      if (params.get('role') === 'all') {
+        this.pageTitle = 'All Users';
+        this.userService.all().then(users => this.users = users.filter(user => user.type !== ADMIN ));
+      } else if (params.get('role') === 'dev') {
+        this.pageTitle = 'Developers';
+        this.userService.getUserByRole(DEV).then(users => this.users = users);
+      } else if (params.get('role') === 'pm') {
+        this.pageTitle = 'Project Managers';
+        this.userService.getUserByRole(PM).then(users => this.users = users);
+      }
+      this.currentRole = params.get('role');
+    });
   }
-  createUser(){
+  createUser() {
     this.router.navigate(['admin/create-user']);
   }
 }

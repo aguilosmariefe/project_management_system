@@ -1,3 +1,4 @@
+import { UserService, UsersSummary } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,15 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardPage implements OnInit {
 
-  cardItems: any[] = [];
-  constructor() { }
+  cardItems: any[] = [
+    { title: 'All Users', count: 0, route: 'all' },
+    { title: 'Project Managers', count: 0, route: 'pm' },
+    { title: 'Developers', count: 0, route: 'dev' }
+  ];
+  usersSummmary: UsersSummary;
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
-    const test = [
-      {title: 'All Users', usersCount: 33, route: 'all'},
-      {title: 'Project Managers', usersCount: 3, route: 'pm'},
-      {title: 'Developers', usersCount: 30, route: 'dev'},
-    ];
-    this.cardItems = test;
+    this.userService.summary().then(summary => {
+      this.cardItems[0].count = summary.all;
+      this.cardItems[1].count = summary.pm;
+      this.cardItems[2].count = summary.dev;
+    });
   }
 }

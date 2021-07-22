@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-card color="light" *ngFor="let cardItem of cardItems">
+    <ion-card color="white" *ngFor="let item of cardItems">
         <ion-card-header>
             <ion-list class="list-item">
                 <ion-item class="list-item" lines="none">
@@ -13,10 +13,10 @@
                         <ion-icon color="tertiary" name="people-sharp" size="large"></ion-icon>
                     </ion-avatar>
                     <ion-label>
-                        <h2 class="item-title">{{ cardItem.title }}</h2>
+                        <h2 class="item-title">{{ item.title }}</h2>
                     </ion-label>
-                    <ion-badge color="tertiary" class="ion-margin-end">{{ cardItem.usersCount }}</ion-badge>
-                    <a [routerLink]="['/manage/admin/users', cardItem.route]">
+                    <ion-badge color="tertiary" class="ion-margin-end">{{ item.count }}</ion-badge>
+                    <a [routerLink]="['/manage/admin/users', item.route]">
                         <ion-icon color="tertiary" name="eye" size="large"></ion-icon>
                     </a>
                 </ion-item>

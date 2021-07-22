@@ -1,3 +1,4 @@
+import { PM, DEV } from './../services/user.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RouteGuardService } from '../services/route-guard.service';
@@ -9,19 +10,19 @@ const routes: Routes = [
     component: TabsPage,
     children:[
         {
-            path: 'project-manager/dashboard',
+            path: 'users/projects/dashboard',
             loadChildren: () => import('../pages/project-manager/dashboard/dashboard.module').then( m => m.DashboardPageModule),
             canActivate: [RouteGuardService],
             data: {
-                role: 'PM',
+                role: [PM,DEV],
             }
           },
           {
-            path: 'project-manager/projects/:id/tasks',
+            path: 'users/projects/:id/tasks',
             loadChildren: () => import('../pages/project-manager/project-tasks/project-tasks.module').then( m => m.ProjectTasksPageModule),
             canActivate: [RouteGuardService],
             data: {
-                role: 'PM',
+                role: [PM,DEV],
             }
         },
         {
@@ -41,13 +42,9 @@ const routes: Routes = [
             }
         },
         {
-          path: 'tab3',
-          loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
-        },
-        {
           path: '',
           redirectTo: '/admin/dashboard',
-          pathMatch: 'full'
+          pathMatch: 'full',
       }
     ]
   },

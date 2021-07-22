@@ -1,9 +1,11 @@
+import { ADMIN, PM, DEV, User } from './user.service';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 
 import { Storage } from '@capacitor/storage';
 
 import { HttpClient } from '@angular/common/http';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, from } from 'rxjs';
 import { BaseService } from './base.service';
 
@@ -14,9 +16,12 @@ const ACCESS_TOKEN = 'access_token';
 export class AuthenticationService extends BaseService {
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
   token = '';
-  authUser?: any;
+  public authUser?: any;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
     super();
     this.setToken();
     this.setAuthUser();
@@ -38,6 +43,15 @@ export class AuthenticationService extends BaseService {
     }
   }
 
+  async getAuthUser(): Promise<User> {
+    const user = await Storage.get({ key: 'user' });
+    if (user) {
+      this.authUser = JSON.parse(user.value);
+      return JSON.parse(user.value);
+    }
+    return null;
+  }
+
   login({ email, password }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
       tap(({ token, user }) => {
@@ -55,6 +69,18 @@ export class AuthenticationService extends BaseService {
   }
 
   getUserRole(): string {
-    return this.authUser.type;
+    return this.authUser ? this.authUser.type : null;
+  }
+
+  redirectBaseOnRole(role: string) {
+    switch (role) {
+      case ADMIN:
+        this.router.navigateByUrl('/manage/admin/dashboard', { replaceUrl: true });
+        break;
+      case PM:
+      case DEV:
+        this.router.navigateByUrl('/manage/users/projects/dashboard', { replaceUrl: true });
+        break;
+    }
   }
 }

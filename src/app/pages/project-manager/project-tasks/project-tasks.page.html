@@ -1,78 +1,96 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-button color="tertiary" (click)="back()">
-                <ion-icon slot="icon-only" size="large" name="arrow-back-circle-sharp"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-title>{{ getTitle() }}</ion-title>
-        <ion-buttons slot="end">
-            <ion-button color="tertiary" (click)="showTask()" shape="round">
-                <ion-icon slot="icon-only" size="large" name="duplicate-sharp"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="tertiary" (click)="back()">
+        <ion-icon slot="icon-only" size="large" name="arrow-back-circle-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ getTitle() }}</ion-title>
+    <ion-buttons slot="end" *ngIf="canAddTask">
+      <ion-button color="tertiary" (click)="showTask()" shape="round">
+        <ion-icon slot="icon-only" size="large" name="duplicate-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <!-- Modal -->
 <div id="myModal" class="modal" [ngClass]="show ? 'show' : 'hide'">
-    <div class="modal-content">
-        <ion-card>
-            <ion-card-content>
-                <ion-card-title>Task</ion-card-title>
-                <form #f="ngForm">
-                    <ion-item>
-                        <ion-label position="floating">Title</ion-label>
-                        <ion-input placeholder="Input title here.." name="title" required [(ngModel)]="title">
-                        </ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="floating">Description</ion-label>
-                        <ion-input placeholder="Input description here.." required name="description"
-                            [(ngModel)]="description">
-                        </ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Status</ion-label>
-                        <ion-select placeholder="Select Status" name="status" [(ngModel)]="status">
-                            <ion-select-option *ngFor="let status of statuses" [value]="status">{{ status
+  <div class="modal-content">
+    <ion-card>
+      <ion-card-content>
+        <ion-card-title>Task</ion-card-title>
+        <form #f="ngForm">
+          <ion-item>
+            <ion-label position="floating">Title</ion-label>
+            <ion-input placeholder="Input title here.." name="title" required [(ngModel)]="title">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-input placeholder="Input description here.." required name="description" [(ngModel)]="description">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Status</ion-label>
+            <ion-select placeholder="Select Status" name="status" [(ngModel)]="status">
+              <ion-select-option *ngFor="let status of statuses" [value]="status">{{ status
                                 }}</ion-select-option>
-                        </ion-select>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label>Assignee</ion-label>
-                        <ion-select placeholder="Select Assignee" required name="user_id" [(ngModel)]="assignee">
-                            <ion-select-option *ngFor="let assignee of assignees" [value]="assignee.id">{{ assignee.name
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Estimated Hours</ion-label>
+            <ion-input placeholder="Input estimated hours here.." required type="number" [readonly]="!canAddTask" required
+              name="estimated_hours" [(ngModel)]="estimated_hours">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Assignee</ion-label>
+            <ion-select placeholder="Select Assignee" required name="user_id" [(ngModel)]="assignee">
+              <ion-select-option *ngFor="let assignee of assignees" [value]="assignee.id">{{ assignee.name
                                 }}</ion-select-option>
-                        </ion-select>
-                    </ion-item>
-                </form>
-            </ion-card-content>
-            <ion-item class="ion-float-right">
-                <ion-button fill="outline" (click)="show = false" color="primary" shape="round">Cancel</ion-button>
-                <ion-button color="tertiary" [disabled]="f.invalid" shape="round" (click)="onSubmit(f)">{{ modalButton
+            </ion-select>
+          </ion-item>
+        </form>
+      </ion-card-content>
+      <ion-item class="ion-float-right">
+        <ion-button fill="outline" (click)="show = false" color="primary" shape="round">Cancel</ion-button>
+        <ion-button color="tertiary" [disabled]="f.invalid" shape="round" (click)="onSubmit(f)">{{ modalButton
                     }}</ion-button>
-            </ion-item>
-        </ion-card>
-    </div>
+      </ion-item>
+    </ion-card>
+  </div>
 </div>
 
 <!-- Content -->
 <ion-content>
-    <ion-list *ngFor="let task of projectTasks">
-        <ion-item (click)="showTask(task)">
-            <ion-label>
-                <h2 style="font-weight: bold;">{{ task.title }}</h2>
-                <div class="ion-float-right">
-                    <ion-badge color="danger" class="ion-text-uppercase">{{ getTaskAssignee(task.user_id) }}
-                    </ion-badge>
-                    <ion-badge [color]="getColorStatus(task.status)" class="ion-margin-start">{{ task.status }}
-                    </ion-badge>
-                </div>
-                <p>
-                    {{ task.description }}
-                </p>
-            </ion-label>
-        </ion-item>
-    </ion-list>
+  <ion-item>
+    <ion-label>Status</ion-label>
+    <ion-select (ionChange)="setFilteredTasks()" [(ngModel)]="filterTasksByStatus" placeholder="Select status">
+      <ion-select-option value="ALL">ALL</ion-select-option>
+      <ion-select-option value="TODO">TODO</ion-select-option>
+      <ion-select-option value="DOING">DOING</ion-select-option>
+      <ion-select-option value="REVIEW">REVIEW</ion-select-option>
+      <ion-select-option value="DONE">DONE</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <h2 *ngIf="!projectTasks.length" class="ion-text-center">No task found.</h2>
+  <ion-list *ngFor="let task of projectTasks">
+    <ion-item (click)="showTask(task)">
+      <ion-label>
+        <h2 style="font-weight: bold;">{{ task.title }}</h2>
+        <div class="ion-float-right">
+          <ion-badge color="danger" class="ion-text-uppercase">{{ getTaskAssignee(task.user_id) }}
+          </ion-badge>
+          <ion-badge [color]="getColorStatus(task.status)" class="ion-margin-start">{{ task.status }}
+          </ion-badge>
+        </div>
+        <p>
+          {{ task.description }}
+        </p>
+        <p>Remaining hours ({{ getRemainingHours(task) }}h of {{task.estimated_hours}}h)</p>
+        <ion-progress-bar [value]="getRemainingHours(task) / task.estimated_hours"></ion-progress-bar>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -28,6 +28,7 @@ const routes: Routes = [
     path: 'admin/create-user',
     loadChildren: () => import('./pages/admin/create-user/create-user.module').then( m => m.CreateUserPageModule)
   },
+
 ];
 @NgModule({
   imports: [
