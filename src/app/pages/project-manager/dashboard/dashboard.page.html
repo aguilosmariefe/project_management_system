@@ -3,7 +3,7 @@
         <ion-title>Projects</ion-title>
         <ion-buttons slot="end" *ngIf="canAddProject">
             <ion-button color="tertiary" (click)="addProject()" shape="round">
-                <ion-icon slot="icon-only" size="large" name="bag-add-sharp"></ion-icon>
+                <ion-icon slot="icon-only" size="large" name="bag-add-sharp" color="primary"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
@@ -54,9 +54,9 @@
 <ion-content>
   <h2 *ngIf="!projects.length" class="ion-text-center">No Project created.</h2>
     <ion-list>
-        <ion-item lines="full" *ngFor="let project of projects">
+        <ion-item *ngFor="let project of projects">
             <ion-avatar slot="start">
-                <ion-icon name="folder-open-sharp" size="large"></ion-icon>
+                <ion-icon name="folder-open-sharp" size="large" color="primary"></ion-icon>
             </ion-avatar>
             <ion-label>
                 <h2 style="font-weight: bold;">{{ project.title }}</h2>
@@ -64,7 +64,7 @@
                 <small>{{project.timeline}}</small>
             </ion-label>
             <a [routerLink]="['/manage/users/projects',project.id,'tasks']">
-                <ion-icon color="tertiary" name="eye" size="large"></ion-icon>
+                <ion-icon color="primary" name="eye" size="large"></ion-icon>
             </a>
         </ion-item>
     </ion-list>

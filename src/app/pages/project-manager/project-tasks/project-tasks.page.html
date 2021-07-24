@@ -2,13 +2,13 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="tertiary" (click)="back()">
-        <ion-icon slot="icon-only" size="large" name="arrow-back-circle-sharp"></ion-icon>
+        <ion-icon slot="icon-only" size="large" name="arrow-back-circle-sharp" color="primary"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>{{ getTitle() }}</ion-title>
     <ion-buttons slot="end" *ngIf="canAddTask">
       <ion-button color="tertiary" (click)="showTask()" shape="round">
-        <ion-icon slot="icon-only" size="large" name="duplicate-sharp"></ion-icon>
+        <ion-icon slot="icon-only" size="large" name="duplicate-sharp" color="primary"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
